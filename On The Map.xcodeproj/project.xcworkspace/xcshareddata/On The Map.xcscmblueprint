@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C1D753FF8685D732B6047CD78FDF6C906BA78BC8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C1D753FF8685D732B6047CD78FDF6C906BA78BC8" : 9223372036854775807,
+    "F73AB9D98DCAF0977871305A7CC4DAD446A4E1E1" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6127B2EF-37B1-4584-950D-746C691F61E7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C1D753FF8685D732B6047CD78FDF6C906BA78BC8" : "On%20The%20Map\/",
+    "F73AB9D98DCAF0977871305A7CC4DAD446A4E1E1" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "On The Map",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "On The Map.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/genericjohndoe\/On-The-Map.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C1D753FF8685D732B6047CD78FDF6C906BA78BC8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/genericjohndoe\/MemeMe-2.0",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F73AB9D98DCAF0977871305A7CC4DAD446A4E1E1"
+    }
+  ]
+}
