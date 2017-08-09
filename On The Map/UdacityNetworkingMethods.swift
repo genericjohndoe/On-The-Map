@@ -49,7 +49,7 @@ class UdacityNetworkingMethods: NSObject{
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             func handleError(error: String, errormsg: String) {
-                print(error)
+                print(error + " HE")
                 _ = [NSLocalizedDescriptionKey: error]
                 completionHandlerForSession(false, errormsg, nil)
             }
@@ -60,7 +60,7 @@ class UdacityNetworkingMethods: NSObject{
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                handleError(error: "Your request returned a status code other than 2xx!", errormsg: "Invalid Email Or Password!")
+                handleError(error: "Your request returned a status code other than 2xx!, status code = \((response as? HTTPURLResponse)?.statusCode)", errormsg: "Invalid Email Or Password!")
                 return
             }
             
@@ -107,7 +107,7 @@ class UdacityNetworkingMethods: NSObject{
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
             func sendError(error: String) {
-                print(error)
+                print(error + " SE")
                 let userInfo = [NSLocalizedDescriptionKey: error]
                 completetionHandlerForUserId(false, NSError(domain: "getUserData", code: 1, userInfo: userInfo))
             }
