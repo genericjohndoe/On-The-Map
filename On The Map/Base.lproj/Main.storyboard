@@ -106,7 +106,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Xwh-lV-lRt">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studenttablecell" id="Xwh-lV-lRt">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xwh-lV-lRt" id="pdm-V2-cdu">
@@ -157,6 +157,9 @@
                         <barButtonItem key="leftBarButtonItem" image="icon_pin" id="Dz5-2B-40h"/>
                         <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="PvF-Wl-mYO"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="map" destination="ww3-F2-Nmf" id="qXr-3v-yok"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="57Q-Uk-c7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -199,7 +202,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="o7i-pf-kSO">
             <objects>
-                <tabBarController id="rAE-Vi-CWL" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MapTabBarController" id="rAE-Vi-CWL" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="pvw-NX-qqi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
