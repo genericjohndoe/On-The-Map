@@ -27,6 +27,12 @@ class UdacityNetworkingMethods: NSObject{
     }
     
     func login(_ email: String,_ password: String, completionHandlerForLogin: @escaping (_ success: Bool, _ error: String?) -> Void){
+        
+        
+        print("\nIn UdacityNetworkingMethods.login():")
+        print("\temail: \(email)")
+        print("\tpassword: \(password)")
+        
         getSessionID(email, password){ (success, error, result) in
             if success {
                 print("Session ID recieved")
@@ -41,11 +47,20 @@ class UdacityNetworkingMethods: NSObject{
     }
     
     func getSessionID(_ email: String,_ password: String, completionHandlerForSession: @escaping (_ success: Bool, _ error: String?, _ result: String?) -> Void){
+        
+        
+        print("\nIn UdacityNetworkingMethods.getSessionID():")
+        print("\temail: \(email)")
+        print("\tpassword: \(password)")
+        
+        let httpBodyString = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}"
+        print("\n\thttpBodyString: \(httpBodyString)")
+        
         let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"udacity\": {\"username\": \"\(email)\", \"password\": \"\(password)\"}}".data(using: String.Encoding.utf8)
+        request.httpBody = httpBodyString.data(using: String.Encoding.utf8)
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             func handleError(error: String, errormsg: String) {
@@ -60,6 +75,7 @@ class UdacityNetworkingMethods: NSObject{
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                print("\nresponse: \(response!)\n")
                 handleError(error: "Your request returned a status code other than 2xx!, status code = \((response as? HTTPURLResponse)?.statusCode)", errormsg: "Invalid Email Or Password!")
                 return
             }
