@@ -76,7 +76,7 @@ class UdacityNetworkingMethods: NSObject{
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 print("\nresponse: \(response!)\n")
-                handleError(error: "Your request returned a status code other than 2xx!, status code = \((response as? HTTPURLResponse)?.statusCode)", errormsg: "Invalid Email Or Password!")
+                handleError(error: "Your request returned a status code other than 2xx!, status code = \((response as? HTTPURLResponse)!.statusCode)", errormsg: "Invalid Email Or Password!")
                 return
             }
             
