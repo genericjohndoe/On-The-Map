@@ -165,11 +165,11 @@
             </objects>
             <point key="canvasLocation" x="3670" y="-346"/>
         </scene>
-        <!--Item-->
+        <!--List-->
         <scene sceneID="lGX-8n-dvk">
             <objects>
                 <navigationController id="nwx-uA-r26" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" selectedImage="icon_listview-deselected" id="5B4-gm-hN6"/>
+                    <tabBarItem key="tabBarItem" title="List" image="icon_listview-deselected" selectedImage="icon_listview-deselected" id="5B4-gm-hN6"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HCO-gF-fyz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -182,11 +182,11 @@
             </objects>
             <point key="canvasLocation" x="2734" y="379"/>
         </scene>
-        <!--Item-->
+        <!--Map-->
         <scene sceneID="1ha-ET-TZR">
             <objects>
                 <navigationController id="vB7-uF-dBh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" selectedImage="icon_mapview-deselected" id="Lm1-cw-eWE"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="icon_mapview-deselected" selectedImage="icon_mapview-deselected" id="Lm1-cw-eWE"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2kz-vU-cpU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -209,8 +209,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="nwx-uA-r26" kind="relationship" relationship="viewControllers" id="1G1-pC-Wke"/>
                         <segue destination="vB7-uF-dBh" kind="relationship" relationship="viewControllers" id="fq1-HU-iJ5"/>
+                        <segue destination="nwx-uA-r26" kind="relationship" relationship="viewControllers" id="1G1-pC-Wke"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LjE-0y-zue" userLabel="First Responder" sceneMemberID="firstResponder"/>
