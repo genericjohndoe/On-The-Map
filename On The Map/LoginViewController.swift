@@ -33,12 +33,16 @@ class LoginViewController: UIViewController {
     
         UdacityNetworkingMethods.sharedInstance().login(emailTextField.text!, passwordTextField.text!){ (success, error) in
             if success {
-                DispatchQueue.main.async {
-                    print("login successful")
-                    //self.emailTextField.text = ""
-                    //self.passwordTextField.text = ""
-                    let controller = self.storyboard!.instantiateViewController(withIdentifier: "MapTabBarController") as! UITabBarController
-                    self.present(controller, animated: true, completion: nil)
+                print("login successful")
+                ParseObject.sharedInstance().getStudentLocations()
+                    { (success, error) in
+                        if success{
+                            print("student locations recieved")
+                            DispatchQueue.main.async {
+                                let controller = self.storyboard!.instantiateViewController(withIdentifier: "MapTabBarController") as! UITabBarController
+                                self.present(controller, animated: true, completion: nil)
+                        }
+                }
                 }
             }
         }

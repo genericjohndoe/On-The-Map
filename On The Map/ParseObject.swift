@@ -10,7 +10,21 @@ import Foundation
 
 
 class ParseObject: NSObject{
- 
+    
+    // MARK: Initializers
+    override init() {
+        super.init()
+    }
+    
+    // MARK: Shared Instance
+    class func sharedInstance() -> ParseObject {
+        struct Singleton {
+            static var sharedInstance = ParseObject()
+        }
+        return Singleton.sharedInstance
+    }
+    
+    //returns student locations
     func getStudentLocations(completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void){
         let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?order=-updatedAt&limit=100")!)
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
@@ -58,7 +72,8 @@ class ParseObject: NSObject{
         task.resume()
         }
     
-    func getSIngleLocation(_ uniqueKey: String, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void){
+    //returns single location for student
+    func getSingleLocation(_ uniqueKey: String, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void){
         let urlString = "https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22\(uniqueKey)%22%3A%221234%22%7D"
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
@@ -108,6 +123,7 @@ class ParseObject: NSObject{
         task.resume()
     }
     
+    //add student location
     func addStudentLocation(_ newStudent: Student, location: String, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void){
         let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
         request.httpMethod = "POST"
@@ -142,6 +158,7 @@ class ParseObject: NSObject{
         task.resume()
     }
     
+    //update student location
     func updateStudentLocation(_ student: Student, location: String, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void){
         let urlString = "https://parse.udacity.com/parse/classes/StudentLocation/\(student.objectId)"
         let url = URL(string: urlString)

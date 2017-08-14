@@ -12,11 +12,12 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate{
     
-    
+    var annotations = [MKPointAnnotation]()
     @IBOutlet weak var map: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initMap()
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
@@ -38,5 +39,19 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {}
+    
+    func initMap(){
+        map.removeAnnotations(annotations)
+        annotations = [MKPointAnnotation]()
+        
+        for student in Student.studentArray {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: student.lat, longitude: student.long)
+            annotation.title = "\(student.firstName) \(student.lastName)"
+            annotation.subtitle = student.mediaURL
+            annotations.append(annotation)
+        }
+        map.addAnnotations(annotations)
+    }
 
 }
