@@ -52,4 +52,16 @@ class TableViewController: UITableViewController{
         }
     }
     
+    @IBAction func refresh(_ sender: Any) {
+        let mapController = self.storyboard!.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+        ParseObject.sharedInstance().getStudentLocations() {
+            (success, error) in
+            if success {
+                mapController.initMap()
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    
 }

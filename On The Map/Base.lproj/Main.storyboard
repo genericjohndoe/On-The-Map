@@ -100,7 +100,7 @@
         <!--Student List-->
         <scene sceneID="wwF-wg-bah">
             <objects>
-                <tableViewController id="5Gl-oI-t58" customClass="TableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TableViewController" id="5Gl-oI-t58" customClass="TableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Cgq-T0-WVh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,7 +110,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xwh-lV-lRt" id="pdm-V2-cdu">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -122,7 +122,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Student List" id="rtQ-rr-mbb">
                         <barButtonItem key="leftBarButtonItem" image="icon_pin" id="7uH-v2-xWr"/>
-                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="h2W-LQ-q60"/>
+                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="h2W-LQ-q60">
+                            <connections>
+                                <action selector="refresh:" destination="5Gl-oI-t58" id="0f0-uN-FLo"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hAv-A5-A9B" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -132,7 +136,7 @@
         <!--On The Map-->
         <scene sceneID="NET-n4-O7v">
             <objects>
-                <viewController id="PRZ-sd-ijB" customClass="MapViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="PRZ-sd-ijB" customClass="MapViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9JI-To-kLI"/>
                         <viewControllerLayoutGuide type="bottom" id="De4-Uj-paR"/>
@@ -155,7 +159,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="LE0-lj-Xqr">
                         <barButtonItem key="leftBarButtonItem" image="icon_pin" id="Dz5-2B-40h"/>
-                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="PvF-Wl-mYO"/>
+                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="PvF-Wl-mYO">
+                            <connections>
+                                <action selector="refresh:" destination="PRZ-sd-ijB" id="gEo-yp-fyF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="map" destination="ww3-F2-Nmf" id="qXr-3v-yok"/>

@@ -69,5 +69,17 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         }
         map.addAnnotations(annotations)
     }
+    
+    @IBAction func refresh(_ sender: Any) {
+        let ListController = self.storyboard!.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+        ParseObject.sharedInstance().getStudentLocations() {
+            (success, error) in
+            if success {
+                self.initMap()
+                ListController.tableView.reloadData()
+            }
+            }
+    }
+    
 
 }
