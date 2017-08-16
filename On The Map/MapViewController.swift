@@ -38,7 +38,23 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         return pinView
     }
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {}
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.rightCalloutAccessoryView {
+            let app = UIApplication.shared
+            if let mediaLink = view.annotation?.subtitle! {
+                if UIApplication.shared.canOpenURL(URL(string: mediaLink)!){
+                    app.openURL(URL(string: mediaLink)!)
+                } else {
+                    let AlertController = UIAlertController(title: "", message: "Invalid Link", preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel) {
+                        action in AlertController.dismiss(animated: true, completion: nil)
+                    }
+                    AlertController.addAction(cancelAction)
+                    present(AlertController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
     
     func initMap(){
         map.removeAnnotations(annotations)

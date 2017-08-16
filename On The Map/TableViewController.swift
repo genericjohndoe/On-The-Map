@@ -20,10 +20,14 @@ class TableViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1}
+        return Student.studentArray.count}
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "studenttablecell", for: indexPath)
+        let student = Student.studentArray[indexPath.row]
+        cell.textLabel?.text = "\(student.firstName) \(student.lastName)"
+        cell.imageView?.image = UIImage(named: "pin")
+        cell.detailTextLabel?.text = student.mediaURL
         return cell
     }
     
@@ -31,6 +35,21 @@ class TableViewController: UITableViewController{
         return true
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){}
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        let student = Student.studentArray[indexPath.row]
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let app = UIApplication.shared
+        if UIApplication.shared.canOpenURL(URL(string: student.mediaURL)!){
+            app.openURL(URL(string: student.mediaURL)!)
+        } else {
+            let AlertController = UIAlertController(title: "", message: "Invalid Link", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel) {
+                action in AlertController.dismiss(animated: true, completion: nil)
+            }
+            AlertController.addAction(cancelAction)
+            present(AlertController, animated: true, completion: nil)
+        }
+    }
     
 }
