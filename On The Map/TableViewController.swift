@@ -43,21 +43,18 @@ class TableViewController: UITableViewController{
         if app.canOpenURL(URL(string: student.mediaURL)!){
             app.openURL(URL(string: student.mediaURL)!)
         } else {
-            let AlertController = UIAlertController(title: "", message: "Invalid Link", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel) {
-                action in AlertController.dismiss(animated: true, completion: nil)
-            }
-            AlertController.addAction(cancelAction)
-            present(AlertController, animated: true, completion: nil)
+            UdacityNetworkingMethods.sharedInstance().showError(self, "Invalid Link")
         }
     }
     
     @IBAction func logout(_ sender: Any) {
         UdacityNetworkingMethods.sharedInstance().logout(){
-            (success) in
+            (success, error) in
             if success {
                 print("Logged Out")
                 self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+            } else {
+                UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, error)
             }
         }
     }

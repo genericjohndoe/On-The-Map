@@ -26,7 +26,7 @@ class UdacityNetworkingMethods: NSObject{
         return Singleton.sharedInstance
     }
     
-    func login(_ email: String,_ password: String, completionHandlerForLogin: @escaping (_ success: Bool, _ error: String?) -> Void){
+    func login(_ email: String,_ password: String,_ vc: UIViewController, completionHandlerForLogin: @escaping (_ success: Bool, _ error: String?) -> Void){
         
         
         print("\nIn UdacityNetworkingMethods.login():")
@@ -40,8 +40,12 @@ class UdacityNetworkingMethods: NSObject{
                     if success {
                         print("User data received")
                         completionHandlerForLogin(success, nil)
+                    } else {
+                        self.showErrorOnMain(vc, error!)
                     }
                 }
+            } else {
+                self.showErrorOnMain(vc, error!)
             }
         }
     }
@@ -63,51 +67,46 @@ class UdacityNetworkingMethods: NSObject{
         request.httpBody = httpBodyString.data(using: String.Encoding.utf8)
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            func handleError(error: String, errormsg: String) {
-                print(error + " HE")
-                _ = [NSLocalizedDescriptionKey: error]
-                completionHandlerForSession(false, errormsg, nil)
-            }
             
             guard (error == nil) else {
-                handleError(error: "There was an error with your request: \(String(describing: error))", errormsg: "Network Connection Is Offline!")
+                completionHandlerForSession(false, "Network Connection Is Offline!",nil)
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                print("\nresponse: \(response!)\n")
-                handleError(error: "Your request returned a status code other than 2xx!, status code = \((response as? HTTPURLResponse)!.statusCode)", errormsg: "Invalid Email Or Password!")
+                completionHandlerForSession(false, "Invalid Email Or Password!",nil)
                 return
             }
             
             guard let data = data else {
-                handleError(error: "No Data Was Returned By The Request!", errormsg: "Network Connection Is Offline!")
+                completionHandlerForSession(false, "Network Connection Is Offline!",nil)
                 return
             }
+            
             let range = Range(5..<data.count)
             let newData = data.subdata(in: range) /* subset response data! */
             var parsedResult:  AnyObject! = nil
             do {
                 parsedResult = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as AnyObject
             } catch {
-                handleError(error: "Could not parse the data as JSON: '\(data)'", errormsg: "No serialization")
+                completionHandlerForSession(false, "No serialization",nil)
                 return
             }
             
             guard let dictionary = parsedResult as? [String: Any] else {
-                handleError(error: "Can't Parse Dictionary", errormsg: "Network Connection Is Offline!")
+                completionHandlerForSession(false, "Network Connection Is Offline!",nil)
                 return
             }
             
             guard let account = dictionary["account"] as? [String:Any] else {
-                handleError(error: "Cannot Find Key 'Account' In \(parsedResult)", errormsg: "Network Connection Is Offline!")
+                completionHandlerForSession(false, "Network Connection Is Offline!",nil)
                 return
             }
             
             //Utilize Data
             
             guard let userID = account["key"] as? String else {
-                handleError(error: "Cannot Find Key 'Key' In \(account)", errormsg: "Network Connection Is Offline!")
+                completionHandlerForSession(false, "Network Connection Is Offline!",nil)
                 return
             }
             
@@ -117,29 +116,23 @@ class UdacityNetworkingMethods: NSObject{
         task.resume()
     }
     
-    func getUserInfo(_ userId: String, completetionHandlerForUserId: @escaping (_ success: Bool, _ error: NSError?) -> Void){
+    func getUserInfo(_ userId: String, completetionHandlerForUserId: @escaping (_ success: Bool, _ error: String?) -> Void){
         let request = NSMutableURLRequest(url: NSURL(string: "https://www.udacity.com/api/users/\(userId)")! as URL)
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
-            func sendError(error: String) {
-                print(error + " SE")
-                let userInfo = [NSLocalizedDescriptionKey: error]
-                completetionHandlerForUserId(false, NSError(domain: "getUserData", code: 1, userInfo: userInfo))
-            }
-            
             guard (error == nil) else {
-                sendError(error: "There was an error with your request: \(String(describing: error))")
+                completetionHandlerForUserId(false,"There was an error with your request: \(String(describing: error))")
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                sendError(error: "Your Request Returned A Status Code Other Than 2xx!")
+                completetionHandlerForUserId(false,"Your Request Returned A Status Code Other Than 2xx!")
                 return
             }
             
             guard let data = data else {
-                sendError(error: "No Data Was Returned By The Request!")
+                completetionHandlerForUserId(false,"No Data Was Returned By The Request!")
                 return
             }
             
@@ -151,30 +144,30 @@ class UdacityNetworkingMethods: NSObject{
             do {
                 parsedResult = try JSONSerialization.jsonObject(with: newData, options: .allowFragments)
             } catch {
-                sendError(error: "Could Not Parse The Data As JSON: '\(data)'")
+                completetionHandlerForUserId(false, "Could Not Parse The Data As JSON: '\(data)'")
                 return
             }
             
             guard let dictionary = parsedResult as? [String: Any] else {
-                sendError(error: "Cannot Parse")
+                completetionHandlerForUserId(false, "Cannot Parse")
                 return
             }
             
             
             guard let user = dictionary["user"] as? [String: Any] else {
-                sendError(error: "Cannot Find Key 'user' In \(parsedResult)")
+                completetionHandlerForUserId(false, "Cannot Find Key 'user' In \(parsedResult)")
                 return
             }
             
             guard let lastName = user["last_name"] as? String else {
-                sendError(error: "Cannot Find Key 'key' In \(user)")
+                completetionHandlerForUserId(false, "Cannot Find Key 'last_name' In \(user)")
                 return
             }
             
             //Utilize Data
             
             guard let firstName = user["first_name"] as? String else {
-                sendError(error: "Cannot Find Key 'key' In \(user)")
+                completetionHandlerForUserId(false, "Cannot Find Key 'first_name' In \(user)")
                 return
             }
             self.appDelegate.lastName = lastName
@@ -184,7 +177,7 @@ class UdacityNetworkingMethods: NSObject{
         task.resume()
     }
     
-    func logout(completetionHandlerForLogout: @escaping (_ success: Bool) -> Void){
+    func logout(completetionHandlerForLogout: @escaping (_ success: Bool,_ error: String) -> Void){
         let request = NSMutableURLRequest(url: NSURL(string: "https://www.udacity.com/api/session")! as URL)
         request.httpMethod = "DELETE"
         var xsrfCookie: HTTPCookie? = nil
@@ -199,21 +192,41 @@ class UdacityNetworkingMethods: NSObject{
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
             guard (error == nil) else {
-                print("There Was An Error With Your Request: \(String(describing: error))")
+                completetionHandlerForLogout(false, "There Was An Error With Your Request: \(String(describing: error))")
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                print("Your Request Returned A Status Code Other Than 2xx!")
+                completetionHandlerForLogout(false, "Your Request Returned A Status Code Other Than 2xx!")
                 return
             }
             
             guard data != nil else {
-                print("No Data Was Returned By The Request!")
+                completetionHandlerForLogout(false, "No Data Was Returned By The Request!")
                 return
             }
         }
-        completetionHandlerForLogout(true)
+        completetionHandlerForLogout(true, "")
         task.resume()
+    }
+    
+    func showError(_ vc: UIViewController,_ error: String){
+        let AlertController = UIAlertController(title: "", message: error, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel) {
+            action in AlertController.dismiss(animated: true, completion: nil)
+        }
+        AlertController.addAction(cancelAction)
+        vc.present(AlertController, animated: true, completion: nil)
+    }
+    
+    func showErrorOnMain(_ vc: UIViewController,_ error: String){
+        DispatchQueue.main.async{
+            let AlertController = UIAlertController(title: "", message: error, preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel) {
+                action in AlertController.dismiss(animated: true, completion: nil)
+            }
+            AlertController.addAction(cancelAction)
+            vc.present(AlertController, animated: true, completion: nil)
+        }
     }
 }

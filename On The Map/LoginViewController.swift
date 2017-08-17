@@ -30,28 +30,30 @@ class LoginViewController: UIViewController {
     
     @IBAction func Login(_ sender: Any) {
          if !emailTextField.text!.isEmpty || !passwordTextField.text!.isEmpty {
-    
-        UdacityNetworkingMethods.sharedInstance().login(emailTextField.text!, passwordTextField.text!){ (success, error) in
+            UdacityNetworkingMethods.sharedInstance().login(emailTextField.text!, passwordTextField.text!, self){ (success, error) in
             if success {
                 print("login successful")
                 ParseObject.sharedInstance().getStudentLocations()
                     { (success, error) in
-                        if success{
+                        if success {
                             print("student locations recieved")
                             DispatchQueue.main.async {
                                 self.emailTextField.text = ""
                                 self.passwordTextField.text = ""
                                 let controller = self.storyboard!.instantiateViewController(withIdentifier: "MapTabBarController") as! UITabBarController
                                 self.present(controller, animated: true, completion: nil)
+                            }
+                        } else {
+                            DispatchQueue.main.async{
+                            UdacityNetworkingMethods.sharedInstance().showError(self, "Sign in Unsuccessful")
+                            }
                         }
                 }
                 }
             }
         }
-        }
-    }
-    
         
+    }
     
     @IBAction func signUp(_ sender: Any) {
         UIApplication.shared.open(URL(string: "https://auth.udacity.com/sign-up?next=https%3A%2F%2Fclassroom.udacity.com%2Fauthenticated")!,

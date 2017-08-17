@@ -45,12 +45,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
                 if app.canOpenURL(URL(string: mediaLink)!){
                     app.openURL(URL(string: mediaLink)!)
                 } else {
-                    let AlertController = UIAlertController(title: "", message: "Invalid Link", preferredStyle: .alert)
-                    let cancelAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel) {
-                        action in AlertController.dismiss(animated: true, completion: nil)
-                    }
-                    AlertController.addAction(cancelAction)
-                    present(AlertController, animated: true, completion: nil)
+                    UdacityNetworkingMethods.sharedInstance().showError(self, "Invalid Link")
                 }
             }
         }
@@ -73,10 +68,12 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     
     @IBAction func logout(_ sender: Any) {
         UdacityNetworkingMethods.sharedInstance().logout(){
-            (success) in
+            (success, error) in
             if success {
                 print("Logged Out")
                 self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+            } else {
+                UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, error)
             }
         }
     }
