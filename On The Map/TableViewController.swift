@@ -40,7 +40,7 @@ class TableViewController: UITableViewController{
         tableView.deselectRow(at: indexPath, animated: true)
         
         let app = UIApplication.shared
-        if UIApplication.shared.canOpenURL(URL(string: student.mediaURL)!){
+        if app.canOpenURL(URL(string: student.mediaURL)!){
             app.openURL(URL(string: student.mediaURL)!)
         } else {
             let AlertController = UIAlertController(title: "", message: "Invalid Link", preferredStyle: .alert)
@@ -52,13 +52,12 @@ class TableViewController: UITableViewController{
         }
     }
     
-    @IBAction func refresh(_ sender: Any) {
-        let mapController = self.storyboard!.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
-        ParseObject.sharedInstance().getStudentLocations() {
-            (success, error) in
+    @IBAction func logout(_ sender: Any) {
+        UdacityNetworkingMethods.sharedInstance().logout(){
+            (success) in
             if success {
-                mapController.initMap()
-                self.tableView.reloadData()
+                print("Logged Out")
+                self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
             }
         }
     }

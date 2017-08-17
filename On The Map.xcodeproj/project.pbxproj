@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F6E0EF11F44E6E8009519BB /* ModifyStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6E0EF01F44E6E8009519BB /* ModifyStudentViewController.swift */; };
 		9F86C8101F39098C0062FB98 /* UdacityNetworkingMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86C80F1F39098C0062FB98 /* UdacityNetworkingMethods.swift */; };
 		9F86C8121F3AC3B20062FB98 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86C8111F3AC3B20062FB98 /* MapViewController.swift */; };
 		9F86C8141F3AC64B0062FB98 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F86C8131F3AC64B0062FB98 /* TableViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F6E0EF01F44E6E8009519BB /* ModifyStudentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyStudentViewController.swift; sourceTree = "<group>"; };
 		9F86C80F1F39098C0062FB98 /* UdacityNetworkingMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityNetworkingMethods.swift; sourceTree = "<group>"; };
 		9F86C8111F3AC3B20062FB98 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		9F86C8131F3AC64B0062FB98 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				9F86C8131F3AC64B0062FB98 /* TableViewController.swift */,
 				9F88A0691F3E84840075A307 /* ParseObject.swift */,
 				9F88A06B1F3E86AC0075A307 /* Student.swift */,
+				9F6E0EF01F44E6E8009519BB /* ModifyStudentViewController.swift */,
 			);
 			path = "On The Map";
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 				9F8A813D1F3530F6006FDF79 /* AppDelegate.swift in Sources */,
 				9F86C8141F3AC64B0062FB98 /* TableViewController.swift in Sources */,
 				9F88A06C1F3E86AC0075A307 /* Student.swift in Sources */,
+				9F6E0EF11F44E6E8009519BB /* ModifyStudentViewController.swift in Sources */,
 				9F86C8121F3AC3B20062FB98 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

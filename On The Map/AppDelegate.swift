@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var lastName: String = ""
     var objectId: String = ""
     var uniqueKey: String = ""
-    
     var willOverwrite: Bool = false
     
     

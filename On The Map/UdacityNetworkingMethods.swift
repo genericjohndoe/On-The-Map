@@ -183,4 +183,37 @@ class UdacityNetworkingMethods: NSObject{
         }
         task.resume()
     }
+    
+    func logout(completetionHandlerForLogout: @escaping (_ success: Bool) -> Void){
+        let request = NSMutableURLRequest(url: NSURL(string: "https://www.udacity.com/api/session")! as URL)
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest) { data, response, error in
+            
+            guard (error == nil) else {
+                print("There Was An Error With Your Request: \(String(describing: error))")
+                return
+            }
+            
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                print("Your Request Returned A Status Code Other Than 2xx!")
+                return
+            }
+            
+            guard data != nil else {
+                print("No Data Was Returned By The Request!")
+                return
+            }
+        }
+        completetionHandlerForLogout(true)
+        task.resume()
+    }
 }

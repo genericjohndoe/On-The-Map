@@ -39,6 +39,8 @@ class LoginViewController: UIViewController {
                         if success{
                             print("student locations recieved")
                             DispatchQueue.main.async {
+                                self.emailTextField.text = ""
+                                self.passwordTextField.text = ""
                                 let controller = self.storyboard!.instantiateViewController(withIdentifier: "MapTabBarController") as! UITabBarController
                                 self.present(controller, animated: true, completion: nil)
                         }

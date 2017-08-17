@@ -42,7 +42,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
             if let mediaLink = view.annotation?.subtitle! {
-                if UIApplication.shared.canOpenURL(URL(string: mediaLink)!){
+                if app.canOpenURL(URL(string: mediaLink)!){
                     app.openURL(URL(string: mediaLink)!)
                 } else {
                     let AlertController = UIAlertController(title: "", message: "Invalid Link", preferredStyle: .alert)
@@ -70,16 +70,15 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         map.addAnnotations(annotations)
     }
     
-    @IBAction func refresh(_ sender: Any) {
-        let ListController = self.storyboard!.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
-        ParseObject.sharedInstance().getStudentLocations() {
-            (success, error) in
-            if success {
-                self.initMap()
-                ListController.tableView.reloadData()
-            }
-            }
-    }
     
+    @IBAction func logout(_ sender: Any) {
+        UdacityNetworkingMethods.sharedInstance().logout(){
+            (success) in
+            if success {
+                print("Logged Out")
+                self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+            }
+        }
+    }
 
 }
