@@ -25,47 +25,42 @@ class ParseObject: NSObject{
     }
     
     //returns student locations
-    func getStudentLocations(completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void){
+    func getStudentLocations(completionHandlerSLS: @escaping (_ success: Bool, _ error: String?) -> Void){
         let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?order=-updatedAt&limit=100")!)
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            func sendError(error: String) {
-                print(error)
-                let errorSent = [NSLocalizedDescriptionKey: error]
-                completionHandler(false, NSError(domain: "getStudentData", code: 1, userInfo: errorSent))
-            }
             
             guard (error == nil) else {
-                sendError(error: "There Was An Error With Your Request: \(String(describing: error))")
+                completionHandlerSLS(false,"There Was An Error With Your Request: \(String(describing: error))")
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                sendError(error: "Your Request Returned A Status Code Other Than 2xx!")
+                completionHandlerSLS(false,"Your Request Returned A Status Code Other Than 2xx!")
                 return
             }
             
             guard let data = data else {
-                sendError(error: "No Data Was Returned By The Request!")
+                completionHandlerSLS(false, "No Data Was Returned By The Request!")
                 return
             }
             let parsedResult: Any!
             do {
                 parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
             } catch {
-                sendError(error: "Could Not Parse The Data As JSON: '\(data)'")
+                completionHandlerSLS(false,"Could Not Parse The Data As JSON: '\(data)'")
                 return
             }
             
             if let results = parsedResult as? [String: Any] {
                 if let resultSet = results["results"] as? [[String: Any]]{
                     Student.studentArray = Student.setStudentArray(resultSet)
-                    completionHandler(true, nil)
+                    completionHandlerSLS(true, nil)
                 }
             } else {
-                sendError(error: "error when converting student location data to app usable form")
+                completionHandlerSLS(false, "error when converting student location data to app usable form")
             }
             
         }
@@ -73,7 +68,7 @@ class ParseObject: NSObject{
         }
     
     //returns single location for student
-    func getSingleLocation(_ uniqueKey: String, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void){
+    func getSingleLocation(_ uniqueKey: String, completionHandlerSSL: @escaping (_ success: Bool, _ error: String?) -> Void){
         let urlString = "https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22\(uniqueKey)%22%3A%221234%22%7D"
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
@@ -81,41 +76,36 @@ class ParseObject: NSObject{
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            func sendError(error: String) {
-                print(error)
-                let errorSent = [NSLocalizedDescriptionKey: error]
-                completionHandler(false, NSError(domain: "getStudentData", code: 1, userInfo: errorSent))
-            }
             
             guard (error == nil) else {
-                sendError(error: "There Was An Error With Your Request: \(String(describing: error))")
+                completionHandlerSSL(false, "There Was An Error With Your Request: \(String(describing: error))")
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                sendError(error: "Your Request Returned A Status Code Other Than 2xx!")
+                completionHandlerSSL(false, "Your Request Returned A Status Code Other Than 2xx!")
                 return
             }
             
             guard let data = data else {
-                sendError(error: "No Data Was Returned By The Request!")
+                completionHandlerSSL(false, "No Data Was Returned By The Request!")
                 return
             }
             let parsedResult: Any!
             do {
                 parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
             } catch {
-                sendError(error: "Could Not Parse The Data As JSON: '\(data)'")
+                completionHandlerSSL(false, "Could Not Parse The Data As JSON: '\(data)'")
                 return
             }
             
             if let results = parsedResult as? [String: Any] {
                 if let resultSet = results["results"] as? [[String: Any]]{
                     Student.studentArray = Student.setStudentArray(resultSet)
-                    completionHandler(true, nil)
+                    completionHandlerSSL(true, nil)
                 }
             } else {
-                sendError(error: "error when converting student location data to app usable form")
+                completionHandlerSSL(false, "error when converting student location data to app usable form")
             }
             
         }
@@ -124,7 +114,7 @@ class ParseObject: NSObject{
     }
     
     //add student location
-    func addStudentLocation(_ newStudent: Student, location: String, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void){
+    func addStudentLocation(_ newStudent: Student, location: String, completionHandlerASL: @escaping (_ success: Bool, _ error: String?) -> Void){
         let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
         request.httpMethod = "POST"
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
@@ -133,33 +123,28 @@ class ParseObject: NSObject{
         request.httpBody = "{\"uniqueKey\": \"\(newStudent.uniqueKey)\", \"firstName\": \"\(newStudent.firstName)\", \"lastName\": \"\(newStudent.lastName)\",\"mapString\": \"\(location)\", \"mediaURL\": \"\(newStudent.mediaURL)\",\"latitude\": \(newStudent.lat), \"longitude\": \(newStudent.long)}".data(using: String.Encoding.utf8)
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
-            func sendError(error: String) {
-                print(error)
-                let errorSent = [NSLocalizedDescriptionKey: error]
-                completionHandler(false, NSError(domain: "getStudentData", code: 1, userInfo: errorSent))
-            }
             
             guard (error == nil) else {
-                sendError(error: "There Was An Error With Your Request: \(String(describing: error))")
+                completionHandlerASL(false, "There Was An Error With Your Request: \(String(describing: error))")
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                sendError(error: "Your Request Returned A Status Code Other Than 2xx!")
+                completionHandlerASL(false, "Your Request Returned A Status Code Other Than 2xx!")
                 return
             }
             
             guard data != nil else {
-                sendError(error: "No Data Was Returned By The Request!")
+                completionHandlerASL(false, "No Data Was Returned By The Request!")
                 return
             }
-            completionHandler(true, nil)
+            completionHandlerASL(true, nil)
         }
         task.resume()
     }
     
     //update student location
-    func updateStudentLocation(_ student: Student, location: String, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void){
+    func updateStudentLocation(_ student: Student, location: String, completionHandlerUSL: @escaping (_ success: Bool, _ error: String?) -> Void){
         let urlString = "https://parse.udacity.com/parse/classes/StudentLocation/\(student.objectId)"
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
@@ -171,27 +156,21 @@ class ParseObject: NSObject{
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
-            func sendError(error: String) {
-                print(error)
-                let userInfo = [NSLocalizedDescriptionKey: error]
-                completionHandler(false, NSError(domain: "updateStudentData", code: 1, userInfo: userInfo))
-            }
-            
             guard (error == nil) else {
-                sendError(error: "There was an error with your request: \(String(describing: error))")
+                completionHandlerUSL(false, "There was an error with your request: \(String(describing: error))")
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                sendError(error: "Your Request Returned A Status Code Other Than 2xx!")
+                completionHandlerUSL(false, "Your Request Returned A Status Code Other Than 2xx!")
                 return
             }
             
             guard data != nil else {
-                sendError(error: "No Data Was Returned By The Request!")
+                completionHandlerUSL(false, "No Data Was Returned By The Request!")
                 return
             }
-            completionHandler(true, nil)
+            completionHandlerUSL(true, nil)
         }
         task.resume()
     }

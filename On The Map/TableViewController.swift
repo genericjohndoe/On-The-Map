@@ -51,7 +51,6 @@ class TableViewController: UITableViewController{
         UdacityNetworkingMethods.sharedInstance().logout(){
             (success, error) in
             if success {
-                print("Logged Out")
                 self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
             } else {
                 UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, error)
