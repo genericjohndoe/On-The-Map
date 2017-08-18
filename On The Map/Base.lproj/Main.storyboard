@@ -199,13 +199,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, State, Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1ck-5H-GlM">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, State, Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1ck-5H-GlM">
                                 <rect key="frame" x="49" y="238" width="276" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Update or Add Student" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rhb-Bh-Ik1">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Update or Add Student" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhb-Bh-Ik1">
                                 <rect key="frame" x="49" y="28" width="276" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -214,13 +214,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Note: Leaving the location blank  results in app defaulting to current location" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AbU-ct-g9S">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Note: Leaving the location blank  results in app defaulting to current location" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbU-ct-g9S">
                                 <rect key="frame" x="49" y="296" width="276" height="117"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Media URL" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FR9-66-iRp">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Media URL" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FR9-66-iRp">
                                 <rect key="frame" x="49" y="72" width="114" height="41"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -229,7 +229,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Location" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BAz-tQ-P6g">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Location" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAz-tQ-P6g">
                                 <rect key="frame" x="49" y="170" width="93" height="49"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -243,6 +243,13 @@
                                 <rect key="frame" x="147" y="478" width="81" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="submitStudent:" destination="bxU-GU-g4D" eventType="touchUpInside" id="F9I-BV-Owe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKJ-09-92g">
+                                <rect key="frame" x="160" y="522" width="55" height="30"/>
+                                <state key="normal" title="Cancel"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -253,7 +260,9 @@
                             <constraint firstItem="Lbi-7a-1Oz" firstAttribute="top" secondItem="FR9-66-iRp" secondAttribute="bottom" constant="19" id="7ye-7X-Hgj"/>
                             <constraint firstItem="rhb-Bh-Ik1" firstAttribute="top" secondItem="MeW-FV-jOq" secondAttribute="bottom" constant="8" symbolic="YES" id="DNc-aJ-vZm"/>
                             <constraint firstItem="FR9-66-iRp" firstAttribute="top" secondItem="MeW-FV-jOq" secondAttribute="bottom" constant="52" id="EEI-Nf-VX4"/>
+                            <constraint firstItem="oKJ-09-92g" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="144" id="ETK-CY-WTY"/>
                             <constraint firstItem="GBV-Z4-7Sh" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="131" id="KFI-7b-18d"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1ck-5H-GlM" secondAttribute="trailing" constant="34" id="LnT-J2-8JN"/>
                             <constraint firstItem="i9O-88-Lry" firstAttribute="top" secondItem="AbU-ct-g9S" secondAttribute="bottom" constant="254" id="LuF-Cc-0Ca"/>
                             <constraint firstItem="rhb-Bh-Ik1" firstAttribute="centerX" secondItem="HrU-c2-z88" secondAttribute="centerX" id="Pge-KA-pw0"/>
                             <constraint firstItem="rhb-Bh-Ik1" firstAttribute="leading" secondItem="Lbi-7a-1Oz" secondAttribute="leading" id="Qvm-EJ-tDo"/>
@@ -263,11 +272,13 @@
                             <constraint firstItem="rhb-Bh-Ik1" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="33" id="fum-yt-3qM"/>
                             <constraint firstItem="AbU-ct-g9S" firstAttribute="top" secondItem="1ck-5H-GlM" secondAttribute="bottom" constant="28" id="gDc-lH-7x8"/>
                             <constraint firstItem="BAz-tQ-P6g" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="33" id="lYz-67-YWb"/>
+                            <constraint firstItem="oKJ-09-92g" firstAttribute="top" secondItem="GBV-Z4-7Sh" secondAttribute="bottom" constant="8" id="mFO-4j-k9E"/>
                             <constraint firstItem="AbU-ct-g9S" firstAttribute="top" secondItem="1ck-5H-GlM" secondAttribute="bottom" constant="28" id="pJ5-Gw-U32"/>
                             <constraint firstItem="1ck-5H-GlM" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="33" id="pcp-eJ-6ry"/>
                             <constraint firstItem="FR9-66-iRp" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="33" id="qnb-Ec-oHs"/>
                             <constraint firstItem="AbU-ct-g9S" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="33" id="t4V-nI-0qf"/>
                             <constraint firstItem="1ck-5H-GlM" firstAttribute="top" secondItem="BAz-tQ-P6g" secondAttribute="bottom" constant="19" id="wW3-Ng-C4V"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="oKJ-09-92g" secondAttribute="trailing" constant="144" id="xpL-IE-omA"/>
                         </constraints>
                     </view>
                     <connections>

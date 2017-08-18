@@ -114,27 +114,31 @@ class ParseObject: NSObject{
     }
     
     //add student location
-    func addStudentLocation(_ newStudent: Student, location: String, completionHandlerASL: @escaping (_ success: Bool, _ error: String?) -> Void){
+    func addStudentLocation(_ newStudent: [String: Any], location: String, completionHandlerASL: @escaping (_ success: Bool, _ error: String?) -> Void){
         let request = NSMutableURLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
         request.httpMethod = "POST"
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"uniqueKey\": \"\(newStudent.uniqueKey)\", \"firstName\": \"\(newStudent.firstName)\", \"lastName\": \"\(newStudent.lastName)\",\"mapString\": \"\(location)\", \"mediaURL\": \"\(newStudent.mediaURL)\",\"latitude\": \(newStudent.lat), \"longitude\": \(newStudent.long)}".data(using: String.Encoding.utf8)
+        request.httpBody = "{\"uniqueKey\": \"\(newStudent["uniqueKey"])\", \"firstName\": \"\(newStudent["firstName"])\", \"lastName\": \"\(newStudent["lastName"])\",\"mapString\": \"\(location)\", \"mediaURL\": \"\(newStudent["mediaURL"])\",\"latitude\": \(newStudent["latitude"]), \"longitude\": \(newStudent["longitude"])}".data(using: String.Encoding.utf8)
+        print(request.url!)
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
             guard (error == nil) else {
+                print("There Was An Error With Your Request: \(String(describing: error))")
                 completionHandlerASL(false, "There Was An Error With Your Request: \(String(describing: error))")
                 return
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                print("Your Request Returned A Status Code Other Than 2xx!")
                 completionHandlerASL(false, "Your Request Returned A Status Code Other Than 2xx!")
                 return
             }
             
             guard data != nil else {
+                print("No Data Was Returned By The Request!")
                 completionHandlerASL(false, "No Data Was Returned By The Request!")
                 return
             }

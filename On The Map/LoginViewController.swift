@@ -44,9 +44,7 @@ class LoginViewController: UIViewController {
                                 self.present(controller, animated: true, completion: nil)
                             }
                         } else {
-                            DispatchQueue.main.async{
-                            UdacityNetworkingMethods.sharedInstance().showError(self, "Sign in Unsuccessful")
-                            }
+                            UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, error!)
                         }
                 }
                 }
