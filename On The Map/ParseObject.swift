@@ -120,8 +120,9 @@ class ParseObject: NSObject{
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"uniqueKey\": \"\(newStudent["uniqueKey"])\", \"firstName\": \"\(newStudent["firstName"])\", \"lastName\": \"\(newStudent["lastName"])\",\"mapString\": \"\(location)\", \"mediaURL\": \"\(newStudent["mediaURL"])\",\"latitude\": \(newStudent["latitude"]), \"longitude\": \(newStudent["longitude"])}".data(using: String.Encoding.utf8)
+        request.httpBody = "{\"uniqueKey\": \"\(newStudent["uniqueKey"]!)\", \"firstName\": \"\(newStudent["firstName"]!)\", \"lastName\": \"\(newStudent["lastName"]!)\",\"mapString\": \"\(location)\", \"mediaURL\": \"\(newStudent["mediaURL"]!)\",\"latitude\": \(newStudent["latitude"]!), \"longitude\": \(newStudent["longitude"]!)}".data(using: String.Encoding.utf8)
         print(request.url!)
+        print(NSString(data: request.httpBody!, encoding: String.Encoding.utf8.rawValue)!)
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             

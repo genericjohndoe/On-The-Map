@@ -50,10 +50,9 @@ class ModifyStudentViewController: UIViewController{
                             print("student added")
                             ParseObject.sharedInstance().getStudentLocations(){
                                 (success, error) in
-                                (self.storyboard!.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController).initMap()
-                                (self.storyboard!.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController).tableView.reloadData()
-                                let controller = self.storyboard!.instantiateViewController(withIdentifier: "MapTabBarController") as! UITabBarController
-                                self.present(controller, animated: true, completion: nil)
+                                DispatchQueue.main.async{
+                                self.dismiss(animated: true, completion: nil)
+                                }
                             }
                         }
                 }
