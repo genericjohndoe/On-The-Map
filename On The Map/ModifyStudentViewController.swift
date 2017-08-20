@@ -53,7 +53,9 @@ class ModifyStudentViewController: UIViewController{
                                 self.dismiss(animated: true, completion: nil)
                                 }
                             }
-                        }
+                        } else{
+                            UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, error!)
+                            }
                 
                         }
                     }else{
@@ -67,6 +69,8 @@ class ModifyStudentViewController: UIViewController{
                                         self.dismiss(animated: true, completion: nil)
                                     }
                                 }
+                            } else {
+                                UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, error!)
                             }
                         }
                     }
@@ -74,4 +78,11 @@ class ModifyStudentViewController: UIViewController{
             }
         }
     }
+    
+    @IBAction func cancel(_ sender: Any) {
+        media.text = ""
+        location.text = ""
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
