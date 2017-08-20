@@ -43,6 +43,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        print("calloutACT called")
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
             if let mediaLink = view.annotation?.subtitle! {
@@ -51,6 +52,17 @@ class MapViewController: UIViewController, MKMapViewDelegate{
                 } else {
                     UdacityNetworkingMethods.sharedInstance().showError(self, "Invalid Link")
                 }
+            }
+        }
+    }
+    func mapView(_ mapView: MKMapView,didSelect view: MKAnnotationView){
+        print("didSelect called")
+        let app = UIApplication.shared
+        if let mediaLink = view.annotation?.subtitle! {
+            if app.canOpenURL(URL(string: mediaLink)!){
+                app.openURL(URL(string: mediaLink)!)
+            } else {
+                UdacityNetworkingMethods.sharedInstance().showError(self, "Invalid Link")
             }
         }
     }
