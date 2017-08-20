@@ -27,24 +27,23 @@ class ModifyStudentViewController: UIViewController{
                     UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, "Geocoding Error")
                     return
                 }
-                print(((placemarks?.count)!))
+               
                 if (placemarks?.count)! > 0 {
                     let placemark = placemarks?[0]
                     let location = placemark?.location
                     let coordinate = location?.coordinate
                     
-                    var dictionary: [String: Any] =
+                    let dictionary: [String: Any] =
                     ["firstName": self.appDelegate.firstName,
                      "lastName": self.appDelegate.lastName,
                      "mediaURL": self.media.text!,
                      "latitude": coordinate!.latitude,
                      "longitude": coordinate!.longitude,
-                     "uniqueKey": self.appDelegate.userID]
+                     "uniqueKey": self.appDelegate.userID,
+                     "objectId": self.appDelegate.objectId]
                     
-                    for (key, value) in dictionary {
-                        print("Dictionary key \(key) -  Dictionary value \(value)")
-                    }
-                    ParseObject.sharedInstance().addStudentLocation(dictionary, location: self.location.text!){
+                    if (self.appDelegate.objectId == ""){
+                        ParseObject.sharedInstance().addStudentLocation(dictionary, location: self.location.text!){
                         (success, error) in
                         if success {
                             print("student added")
@@ -55,9 +54,24 @@ class ModifyStudentViewController: UIViewController{
                                 }
                             }
                         }
+                
+                        }
+                    }else{
+                        ParseObject.sharedInstance().updateStudentLocation(dictionary, location: self.location.text!){
+                            (success, error) in
+                            if success {
+                                print("student updated")
+                                ParseObject.sharedInstance().getStudentLocations(){
+                                    (success, error) in
+                                    DispatchQueue.main.async{
+                                        self.dismiss(animated: true, completion: nil)
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
-    }
     }
 }

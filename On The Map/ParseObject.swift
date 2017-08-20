@@ -7,9 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
 
 class ParseObject: NSObject{
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // MARK: Initializers
     override init() {
@@ -138,26 +141,50 @@ class ParseObject: NSObject{
                 return
             }
             
-            guard data != nil else {
+            guard let data = data else {
                 print("No Data Was Returned By The Request!")
                 completionHandlerASL(false, "No Data Was Returned By The Request!")
                 return
             }
+            
+            let parsedResult: Any!
+            do {
+                parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+            } catch {
+                print("Could Not Parse The Data As JSON")
+                completionHandlerASL(false, "Could Not Parse The Data As JSON: '\(data)'")
+                return
+            }
+            
+            guard let dictionary = parsedResult as? [String: Any] else {
+                print("Cannot Parse")
+                completionHandlerASL(false, "Cannot Parse")
+                return
+            }
+            
+            
+            guard let id = dictionary["objectId"] as? String else {
+                print("Cannot Find Key 'user' In \(parsedResult)")
+                completionHandlerASL(false, "Cannot Find Key 'user' In \(parsedResult)")
+                return
+            }
+            self.appDelegate.objectId = id
+            print(id)
             completionHandlerASL(true, nil)
         }
         task.resume()
     }
     
     //update student location
-    func updateStudentLocation(_ student: Student, location: String, completionHandlerUSL: @escaping (_ success: Bool, _ error: String?) -> Void){
-        let urlString = "https://parse.udacity.com/parse/classes/StudentLocation/\(student.objectId)"
+    func updateStudentLocation(_ student: [String:Any], location: String, completionHandlerUSL: @escaping (_ success: Bool, _ error: String?) -> Void){
+        let urlString = "https://parse.udacity.com/parse/classes/StudentLocation/\(student["objectId"]!)"
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
         request.httpMethod = "PUT"
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"uniqueKey\": \"\(student.uniqueKey)\", \"firstName\": \"\(student.firstName)\", \"lastName\": \"\(student.lastName)\",\"mapString\": \"\(location)\", \"mediaURL\": \"\(student.mediaURL)\",\"latitude\": \(student.lat), \"longitude\": \(student.long)}".data(using: String.Encoding.utf8)
+        request.httpBody = "{\"uniqueKey\": \"\(student["uniqueKey"]!)\", \"firstName\": \"\(student["firstName"]!)\", \"lastName\": \"\(student["lastName"]!)\",\"mapString\": \"\(location)\", \"mediaURL\": \"\(student["mediaURL"]!)\",\"latitude\": \(student["latitude"]!), \"longitude\": \(student["longitude"]!)}".data(using: String.Encoding.utf8)
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
