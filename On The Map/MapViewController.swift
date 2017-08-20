@@ -17,6 +17,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        map.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,7 +27,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
         let reuseId = "pin"
-        
+    
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
         
         if pinView == nil {
@@ -34,8 +35,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
             pinView!.canShowCallout = true
             pinView!.pinTintColor = .red
             pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        }
-        else {
+        } else {
             pinView!.annotation = annotation
         }
         
@@ -55,17 +55,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
             }
         }
     }
-    func mapView(_ mapView: MKMapView,didSelect view: MKAnnotationView){
-        print("didSelect called")
-        let app = UIApplication.shared
-        if let mediaLink = view.annotation?.subtitle! {
-            if app.canOpenURL(URL(string: mediaLink)!){
-                app.openURL(URL(string: mediaLink)!)
-            } else {
-                UdacityNetworkingMethods.sharedInstance().showError(self, "Invalid Link")
-            }
-        }
-    }
+    
     
     func initMap(){
         map.removeAnnotations(annotations)
