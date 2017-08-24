@@ -110,7 +110,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xwh-lV-lRt" id="pdm-V2-cdu">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -214,12 +214,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Note: Leaving the location blank  results in app defaulting to current location" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbU-ct-g9S">
-                                <rect key="frame" x="49" y="296" width="276" height="117"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Media URL" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FR9-66-iRp">
                                 <rect key="frame" x="49" y="72" width="114" height="41"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -239,54 +233,77 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBV-Z4-7Sh">
-                                <rect key="frame" x="147" y="478" width="81" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKJ-09-92g">
+                                <rect key="frame" x="160" y="575" width="55" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancel:" destination="bxU-GU-g4D" eventType="touchUpInside" id="CgW-b6-thr"/>
+                                </connections>
+                            </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lPc-zj-zZc">
+                                <rect key="frame" x="49" y="337" width="276" height="194"/>
+                            </mapView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hmF-V5-1mx">
+                                <rect key="frame" x="177" y="424" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="If the shown location is correct, please press submit" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfy-7O-Edf">
+                                <rect key="frame" x="8" y="286" width="359" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBV-Z4-7Sh">
+                                <rect key="frame" x="147" y="545" width="81" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="submitStudent:" destination="bxU-GU-g4D" eventType="touchUpInside" id="F9I-BV-Owe"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKJ-09-92g">
-                                <rect key="frame" x="160" y="522" width="55" height="30"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="cancel:" destination="bxU-GU-g4D" eventType="touchUpInside" id="CgW-b6-thr"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Lbi-7a-1Oz" firstAttribute="top" secondItem="rhb-Bh-Ik1" secondAttribute="bottom" constant="54" id="2Cy-cN-6Cy"/>
-                            <constraint firstItem="rhb-Bh-Ik1" firstAttribute="trailing" secondItem="AbU-ct-g9S" secondAttribute="trailing" id="5M2-hQ-FUL"/>
                             <constraint firstItem="BAz-tQ-P6g" firstAttribute="top" secondItem="Lbi-7a-1Oz" secondAttribute="bottom" constant="8" symbolic="YES" id="7t8-cU-GX9"/>
                             <constraint firstItem="Lbi-7a-1Oz" firstAttribute="top" secondItem="FR9-66-iRp" secondAttribute="bottom" constant="19" id="7ye-7X-Hgj"/>
+                            <constraint firstItem="pfy-7O-Edf" firstAttribute="top" secondItem="1ck-5H-GlM" secondAttribute="bottom" constant="18" id="8Vz-QZ-Ip6"/>
+                            <constraint firstItem="i9O-88-Lry" firstAttribute="top" secondItem="oKJ-09-92g" secondAttribute="bottom" constant="62" id="AEq-qN-4Fg"/>
                             <constraint firstItem="rhb-Bh-Ik1" firstAttribute="top" secondItem="MeW-FV-jOq" secondAttribute="bottom" constant="8" symbolic="YES" id="DNc-aJ-vZm"/>
                             <constraint firstItem="FR9-66-iRp" firstAttribute="top" secondItem="MeW-FV-jOq" secondAttribute="bottom" constant="52" id="EEI-Nf-VX4"/>
                             <constraint firstItem="oKJ-09-92g" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="144" id="ETK-CY-WTY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hmF-V5-1mx" secondAttribute="trailing" constant="162" id="JBl-Dx-uOb"/>
                             <constraint firstItem="GBV-Z4-7Sh" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="131" id="KFI-7b-18d"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1ck-5H-GlM" secondAttribute="trailing" constant="34" id="LnT-J2-8JN"/>
-                            <constraint firstItem="i9O-88-Lry" firstAttribute="top" secondItem="AbU-ct-g9S" secondAttribute="bottom" constant="254" id="LuF-Cc-0Ca"/>
+                            <constraint firstItem="lPc-zj-zZc" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="33" id="OzA-Fh-RVe"/>
                             <constraint firstItem="rhb-Bh-Ik1" firstAttribute="centerX" secondItem="HrU-c2-z88" secondAttribute="centerX" id="Pge-KA-pw0"/>
                             <constraint firstItem="rhb-Bh-Ik1" firstAttribute="leading" secondItem="Lbi-7a-1Oz" secondAttribute="leading" id="Qvm-EJ-tDo"/>
                             <constraint firstItem="rhb-Bh-Ik1" firstAttribute="trailing" secondItem="Lbi-7a-1Oz" secondAttribute="trailing" id="RIg-rU-dHh"/>
-                            <constraint firstItem="GBV-Z4-7Sh" firstAttribute="top" secondItem="AbU-ct-g9S" secondAttribute="bottom" constant="65" id="cit-bR-UtF"/>
+                            <constraint firstItem="oKJ-09-92g" firstAttribute="top" secondItem="GBV-Z4-7Sh" secondAttribute="bottom" constant="-6" id="UGB-fQ-eHG"/>
+                            <constraint firstItem="GBV-Z4-7Sh" firstAttribute="top" secondItem="lPc-zj-zZc" secondAttribute="bottom" constant="14" id="Y9w-K7-9VB"/>
+                            <constraint firstItem="GBV-Z4-7Sh" firstAttribute="top" secondItem="lPc-zj-zZc" secondAttribute="bottom" constant="14" id="bMp-eS-Qg9"/>
+                            <constraint firstItem="pfy-7O-Edf" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leading" constant="8" id="cR5-co-agA"/>
+                            <constraint firstAttribute="trailing" secondItem="pfy-7O-Edf" secondAttribute="trailing" constant="8" id="ciU-jx-oeB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GBV-Z4-7Sh" secondAttribute="trailing" constant="131" id="eYQ-Rm-pbx"/>
                             <constraint firstItem="rhb-Bh-Ik1" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="33" id="fum-yt-3qM"/>
-                            <constraint firstItem="AbU-ct-g9S" firstAttribute="top" secondItem="1ck-5H-GlM" secondAttribute="bottom" constant="28" id="gDc-lH-7x8"/>
+                            <constraint firstItem="lPc-zj-zZc" firstAttribute="top" secondItem="pfy-7O-Edf" secondAttribute="bottom" constant="17" id="iCb-KM-Zhw"/>
                             <constraint firstItem="BAz-tQ-P6g" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="33" id="lYz-67-YWb"/>
-                            <constraint firstItem="oKJ-09-92g" firstAttribute="top" secondItem="GBV-Z4-7Sh" secondAttribute="bottom" constant="8" id="mFO-4j-k9E"/>
-                            <constraint firstItem="AbU-ct-g9S" firstAttribute="top" secondItem="1ck-5H-GlM" secondAttribute="bottom" constant="28" id="pJ5-Gw-U32"/>
+                            <constraint firstItem="oKJ-09-92g" firstAttribute="top" secondItem="GBV-Z4-7Sh" secondAttribute="bottom" constant="-6" id="mFO-4j-k9E"/>
                             <constraint firstItem="1ck-5H-GlM" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="33" id="pcp-eJ-6ry"/>
                             <constraint firstItem="FR9-66-iRp" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="33" id="qnb-Ec-oHs"/>
-                            <constraint firstItem="AbU-ct-g9S" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="33" id="t4V-nI-0qf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lPc-zj-zZc" secondAttribute="trailing" constant="34" id="scc-D9-hA7"/>
+                            <constraint firstItem="lPc-zj-zZc" firstAttribute="top" secondItem="1ck-5H-GlM" secondAttribute="bottom" constant="69" id="tp5-4J-cRR"/>
+                            <constraint firstItem="hmF-V5-1mx" firstAttribute="top" secondItem="1ck-5H-GlM" secondAttribute="bottom" constant="156" id="vcf-19-dL6"/>
                             <constraint firstItem="1ck-5H-GlM" firstAttribute="top" secondItem="BAz-tQ-P6g" secondAttribute="bottom" constant="19" id="wW3-Ng-C4V"/>
                             <constraint firstAttribute="trailingMargin" secondItem="oKJ-09-92g" secondAttribute="trailing" constant="144" id="xpL-IE-omA"/>
+                            <constraint firstItem="hmF-V5-1mx" firstAttribute="leading" secondItem="HrU-c2-z88" secondAttribute="leadingMargin" constant="161" id="yW2-zm-xqB"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="indicator" destination="hmF-V5-1mx" id="yGV-2I-tG9"/>
                         <outlet property="location" destination="1ck-5H-GlM" id="9Lp-fi-8Kf"/>
+                        <outlet property="map" destination="lPc-zj-zZc" id="Ukf-MQ-Q8a"/>
                         <outlet property="media" destination="Lbi-7a-1Oz" id="JEi-vU-Bp5"/>
+                        <outlet property="submit" destination="GBV-Z4-7Sh" id="SFi-kx-plv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lgG-SG-1Cb" userLabel="First Responder" sceneMemberID="firstResponder"/>
