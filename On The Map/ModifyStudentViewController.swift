@@ -26,6 +26,7 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
         super.viewWillAppear(animated)
         location.delegate = self
         map.delegate = self
+        location.delegate = self
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField){
@@ -72,6 +73,11 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
             }
         }
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
