@@ -46,6 +46,7 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
         }
     }
     func geocodeAddress(completionHandler: @escaping (_ success: Bool) -> Void){
+        if !location.text!.isEmpty {
         CLGeocoder().geocodeAddressString(location.text!) {
                 (placemarks, error) in
     
@@ -70,6 +71,7 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
                 completionHandler(true)
             }
         }
+        }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
@@ -91,7 +93,7 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
     
     
     @IBAction func submitStudent(_ sender: Any) {
-        if !media.text!.isEmpty || !location.text!.isEmpty {
+        if !media.text!.isEmpty {
             let dictionary: [String: Any] =
             ["firstName": self.appDelegate.firstName,
             "lastName": self.appDelegate.lastName,
@@ -133,6 +135,8 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
                         }
                     }
                 }
+        } else {
+            UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, "Please add media url")
         }
     }
     
