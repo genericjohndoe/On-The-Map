@@ -15,19 +15,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-    
     @IBAction func Login(_ sender: Any) {
          if !emailTextField.text!.isEmpty || !passwordTextField.text!.isEmpty {
             UdacityNetworkingMethods.sharedInstance().login(emailTextField.text!, passwordTextField.text!, self){ (success, error) in

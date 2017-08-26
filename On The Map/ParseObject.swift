@@ -41,7 +41,7 @@ class ParseObject: NSObject{
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                completionHandlerSLS(false,"Your Request Returned A Status Code Other Than 2xx!")
+                completionHandlerSLS(false,"Student locations could not be retrieved")
                 return
             }
             
@@ -86,7 +86,7 @@ class ParseObject: NSObject{
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                completionHandlerSSL(false, "Your Request Returned A Status Code Other Than 2xx!")
+                completionHandlerSSL(false, "Sorry, could not retrieve student location")
                 return
             }
             
@@ -137,7 +137,7 @@ class ParseObject: NSObject{
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 print("Your Request Returned A Status Code Other Than 2xx!")
-                completionHandlerASL(false, "Your Request Returned A Status Code Other Than 2xx!")
+                completionHandlerASL(false, "Could not add student location")
                 return
             }
             
@@ -194,7 +194,7 @@ class ParseObject: NSObject{
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                completionHandlerUSL(false, "Your Request Returned A Status Code Other Than 2xx!")
+                completionHandlerUSL(false, "Could not update student location")
                 return
             }
             

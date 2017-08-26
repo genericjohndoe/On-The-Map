@@ -127,7 +127,7 @@ class UdacityNetworkingMethods: NSObject{
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                completetionHandlerForUserId(false,"Your Request Returned A Status Code Other Than 2xx!")
+                completetionHandlerForUserId(false,"Invalid Email Or Password!")
                 return
             }
             
@@ -197,7 +197,7 @@ class UdacityNetworkingMethods: NSObject{
             }
             
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                completetionHandlerForLogout(false, "Your Request Returned A Status Code Other Than 2xx!")
+                completetionHandlerForLogout(false, "Sorry, there was an error during logout!")
                 return
             }
             

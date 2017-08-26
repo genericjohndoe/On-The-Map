@@ -77,7 +77,7 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        return true;
+        return true
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
@@ -121,7 +121,7 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
                             }
                         }
                     }else{
-                        UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, error!)
+                        UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, "Student not added")
                         }
                     }
                 }
@@ -137,7 +137,7 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
                                 }
                             }
                         } else {
-                            UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, error!)
+                            UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, "Student information not updated")
                         }
                     }
                 }
