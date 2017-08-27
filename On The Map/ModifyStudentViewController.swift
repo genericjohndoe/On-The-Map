@@ -27,20 +27,15 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
         media.delegate = self
         map.delegate = self
         location.delegate = self
-        //supportedInterfaceOrientations = UIInterfaceOrientationMask.portrait
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField){
-        //submit.isEnabled = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField,
                                 reason: UITextFieldDidEndEditingReason){
         if reason == UITextFieldDidEndEditingReason.committed {
             indicator.startAnimating()
-            //geocodeAddress()
         }
     }
+    
     @IBAction func geocodeAddress(_ sender: Any){
         if !location.text!.isEmpty {
         CLGeocoder().geocodeAddressString(location.text!) {
@@ -146,5 +141,4 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
         location.text = ""
         dismiss(animated: true, completion: nil)
     }
-    
 }

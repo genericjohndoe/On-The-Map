@@ -122,7 +122,7 @@ class UdacityNetworkingMethods: NSObject{
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
             guard (error == nil) else {
-                completetionHandlerForUserId(false,"There was an error with your request: \(String(describing: error))")
+                completetionHandlerForUserId(false,"There was an error with your request")
                 return
             }
             
@@ -192,7 +192,7 @@ class UdacityNetworkingMethods: NSObject{
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
             guard (error == nil) else {
-                completetionHandlerForLogout(false, "There Was An Error With Your Request: \(String(describing: error))")
+                completetionHandlerForLogout(false, "There Was An Error With Your Request")
                 return
             }
             

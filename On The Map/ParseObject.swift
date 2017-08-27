@@ -36,7 +36,7 @@ class ParseObject: NSObject{
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
             guard (error == nil) else {
-                completionHandlerSLS(false,"There Was An Error With Your Request: \(String(describing: error))")
+                completionHandlerSLS(false,"There Was An Error With Your Request")
                 return
             }
             
@@ -81,7 +81,7 @@ class ParseObject: NSObject{
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
             guard (error == nil) else {
-                completionHandlerSSL(false, "There Was An Error With Your Request: \(String(describing: error))")
+                completionHandlerSSL(false, "There Was An Error With Your Request")
                 return
             }
             
@@ -131,7 +131,7 @@ class ParseObject: NSObject{
             
             guard (error == nil) else {
                 print("There Was An Error With Your Request: \(String(describing: error))")
-                completionHandlerASL(false, "There Was An Error With Your Request: \(String(describing: error))")
+                completionHandlerASL(false, "There Was An Error With Your Request")
                 return
             }
             
@@ -189,7 +189,7 @@ class ParseObject: NSObject{
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             
             guard (error == nil) else {
-                completionHandlerUSL(false, "There was an error with your request: \(String(describing: error))")
+                completionHandlerUSL(false, "There was an error with your request")
                 return
             }
             
