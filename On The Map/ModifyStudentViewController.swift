@@ -43,7 +43,7 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
     
                 guard (error == nil) else {
                     UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, "Geocoding Error")
-                     self.indicator.stopAnimating()
+                    self.indicator.stopAnimating()
                     return
                 }
     
