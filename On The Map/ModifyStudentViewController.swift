@@ -29,21 +29,15 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
         location.delegate = self
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField,
-                                reason: UITextFieldDidEndEditingReason){
-        if reason == UITextFieldDidEndEditingReason.committed {
-            indicator.startAnimating()
-        }
-    }
-    
     @IBAction func geocodeAddress(_ sender: Any){
+        indicator.startAnimating()
         if !location.text!.isEmpty {
         CLGeocoder().geocodeAddressString(location.text!) {
                 (placemarks, error) in
     
                 guard (error == nil) else {
-                    UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, "Geocoding Error")
                     self.indicator.stopAnimating()
+                    UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, "Geocoding Error")
                     return
                 }
     
@@ -60,9 +54,9 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
                 let region = MKCoordinateRegion(center: self.coordinate, span: MKCoordinateSpan(latitudeDelta: 20,longitudeDelta: 20))
                 self.map.setRegion(region, animated: true)
             }
-            self.indicator.stopAnimating()
         }
         }
+        indicator.stopAnimating()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
