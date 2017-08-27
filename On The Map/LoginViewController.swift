@@ -8,13 +8,25 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController,  UITextFieldDelegate {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     @IBAction func Login(_ sender: Any) {
          if !emailTextField.text!.isEmpty || !passwordTextField.text!.isEmpty {
             UdacityNetworkingMethods.sharedInstance().login(emailTextField.text!, passwordTextField.text!, self){ (success, error) in

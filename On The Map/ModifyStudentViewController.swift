@@ -24,36 +24,31 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        location.delegate = self
+        media.delegate = self
         map.delegate = self
         location.delegate = self
+        //supportedInterfaceOrientations = UIInterfaceOrientationMask.portrait
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField){
-        submit.isEnabled = false
+        //submit.isEnabled = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField,
                                 reason: UITextFieldDidEndEditingReason){
         if reason == UITextFieldDidEndEditingReason.committed {
             indicator.startAnimating()
-            geocodeAddress(){
-                (success) in
-                if success {
-                    self.indicator.stopAnimating()
-                    self.submit.isEnabled = true
-                }
-            }
+            //geocodeAddress()
         }
     }
-    func geocodeAddress(completionHandler: @escaping (_ success: Bool) -> Void){
+    @IBAction func geocodeAddress(_ sender: Any){
         if !location.text!.isEmpty {
         CLGeocoder().geocodeAddressString(location.text!) {
                 (placemarks, error) in
     
                 guard (error == nil) else {
                     UdacityNetworkingMethods.sharedInstance().showErrorOnMain(self, "Geocoding Error")
-                    completionHandler(true)
+                     self.indicator.stopAnimating()
                     return
                 }
     
@@ -69,8 +64,8 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
                 self.map.addAnnotation(self.annotation)
                 let region = MKCoordinateRegion(center: self.coordinate, span: MKCoordinateSpan(latitudeDelta: 20,longitudeDelta: 20))
                 self.map.setRegion(region, animated: true)
-                completionHandler(true)
             }
+            self.indicator.stopAnimating()
         }
         }
     }
