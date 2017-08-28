@@ -54,9 +54,9 @@ class ModifyStudentViewController: UIViewController, UITextFieldDelegate, MKMapV
                 let region = MKCoordinateRegion(center: self.coordinate, span: MKCoordinateSpan(latitudeDelta: 20,longitudeDelta: 20))
                 self.map.setRegion(region, animated: true)
             }
+            self.indicator.stopAnimating()
         }
         }
-        indicator.stopAnimating()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
